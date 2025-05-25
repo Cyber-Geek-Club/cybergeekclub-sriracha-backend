@@ -1,9 +1,15 @@
-import express, { type Express } from "express";
+import express from 'express';
+import userRoutes from './routes/userRoute';
+import { errorHandler } from './middlewares/errorHandler';
 
-const app: Express = express();
+const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.json());
+
+// Routes
+app.use('/api/user', userRoutes);
+
+// Global error handler (should be after routes)
+app.use(errorHandler);
 
 export default app;
